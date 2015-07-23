@@ -20,8 +20,10 @@ type
     edt_Password: TEdit;
     btn_login: TButton;
     mmo_log: TMemo;
+    Button1: TButton;
     procedure N2Click(Sender: TObject);
     procedure btn_loginClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     FSetupForm:TFrm_Setup;
     FClientSocket:TClientSocket;
@@ -39,7 +41,7 @@ implementation
 
 {$R *.dfm}
 uses
-  Config;
+  Config,uProtocol;
 
 
 procedure TChatClient.btn_loginClick(Sender: TObject);
@@ -65,6 +67,34 @@ begin
 
 
 //  FClientSocket.Socket.SendBuf(Buffer^,Pos);
+end;
+
+
+
+procedure TChatClient.Button1Click(Sender: TObject);
+var
+  Msg : TMessageDefault;
+  MsgHead :TMessageHead;
+  Buf:PChar;
+  Tmpbuf:PChar;
+  BufLen :integer;
+begin
+ //ÕÒ×ùÎ»
+ BufLen :=0 ;
+ BufLen := SizeOf(MsgHead)+sizeof(Msg);
+ GetMem(Buf,SizeOf(MsgHead)+sizeof(Msg));
+ FillChar(MsgHead,SizeOf(MsgHead),#0);
+ MsgHead.Signed := $FF545454;
+ MsgHead.CompressID := 0 ;
+ MsgHead.BufferPos := SizeOf(MsgHead);
+ MsgHead.BufferLen := SizeOf(Msg);
+ FillChar(Msg,SizeOf(Msg),#0);
+ Msg.MessageID := CM_FIND_PLACE;
+ CopyMemory(buf,@MsgHead,SizeOf(MsgHead));
+ Tmpbuf:=PChar(Buf+sizeof(MsgHead));
+ CopyMemory(Tmpbuf,@Msg,SizeOf(Msg));
+ FClientSocket.Socket.SendBuf(Buf^,BufLen);
+  
 end;
 
 procedure TChatClient.N2Click(Sender: TObject);

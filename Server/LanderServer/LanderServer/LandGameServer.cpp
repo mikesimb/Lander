@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LandGameServer.h"
 #include <functional>  
+#include "uProtocol.h"
 
 
 static CLandGameServer* global_server;
@@ -55,7 +56,16 @@ void CUserClient::ProcClientMsg(char* Buf, int buflen)
 
 void CUserClient::SocketRead(pBlock data, int buflen)
 {
+	if (data->buf.len > 0)
+	{
+		pMessageHead  MsgHead = (pMessageHead)data->buf.buf;
+		pMessageDefault Msg = (pMessageDefault)(MsgHead + MsgHead->BufferPosition);
+		if (Msg->MessageID = 1003)
+		{
+			OutputDebugString("这是我收到的找座位的信息");
+		}
 
+	}
 }
 
 void CUserClient::initialization()

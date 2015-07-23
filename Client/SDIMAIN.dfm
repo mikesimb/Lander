@@ -63,7 +63,7 @@ object ChatClient: TChatClient
       end
       object btn_login: TButton
         Left = 94
-        Top = 96
+        Top = 82
         Width = 75
         Height = 25
         Caption = #30331#38470
@@ -92,10 +92,19 @@ object ChatClient: TChatClient
         'mmo_log')
       TabOrder = 0
     end
+    object Button1: TButton
+      Left = 6
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = #25214#24231#20301
+      TabOrder = 1
+      OnClick = Button1Click
+    end
   end
   object MainMenu1: TMainMenu
-    Left = 96
-    Top = 248
+    Left = 8
+    Top = 440
     object N1: TMenuItem
       Caption = #35774#32622
       object N2: TMenuItem

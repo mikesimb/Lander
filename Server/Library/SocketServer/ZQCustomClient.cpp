@@ -64,9 +64,10 @@ void CZQCustomClient::ReadyReviceNextData(pBlock data)
 	DWORD flags = 0;
 	DWORD ErrorCode;
 	data->OperatorType = ioRead;
-	data->buf.len = sizeof(data->MsgBuf);
+	data->buf.len = 8*1024;
 	data->buf.buf = data->MsgBuf;
-	memset(&data->overloapped, sizeof(WSAOVERLAPPED), 0);
+	//memset(&pContext->ol, 0, sizeof(pContext->ol));
+	memset(&data->overloapped, 0, sizeof(WSAOVERLAPPED));
 	if ((m_socket == INVALID_SOCKET) || (WSARecv(m_socket, &data->buf, 1, (LPDWORD)(&Transfer), (LPDWORD)(&flags), (LPWSAOVERLAPPED)&data->overloapped, NULL) == SOCKET_ERROR))
 	{
 		ErrorCode = GetLastError();
