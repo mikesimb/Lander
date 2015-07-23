@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "LanderServer.h"
 #include "LanderServerDlg.h"
+#include "MainThread.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -94,6 +95,7 @@ void CLanderServerDlg::OnBnClickedWiznext()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	CLandGameServer * m_Server = CLandGameServer::getInstance();
+	CMainThread::getInstance();
 	m_Server->Initialize();
 	
 }
@@ -103,5 +105,6 @@ void CLanderServerDlg::OnBnClickedButton2()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	CLandGameServer * m_server = CLandGameServer::getInstance();
+	CMainThread::getInstance()->Terminate();
 	m_server->Finalize();
 }
