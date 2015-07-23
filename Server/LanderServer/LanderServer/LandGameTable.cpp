@@ -457,3 +457,28 @@ void CLandGameTable::SortCard(CCard ca[])
 		ca[j] = temp;
 	}
 }
+
+int CLandGameTable::getPlayerCount()
+{
+	int result = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		if (m_UserList[i] != NULL)
+		{
+			result++;
+		}
+	}
+	return result;
+}
+
+int CLandGameTable::AddPlayer(CUserClient * client)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (m_UserList[i] == NULL)
+		{
+			return i;
+		}
+	}
+	return -1;
+}

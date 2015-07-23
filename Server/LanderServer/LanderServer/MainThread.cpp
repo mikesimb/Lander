@@ -1,12 +1,20 @@
 #include "stdafx.h"
 #include "MainThread.h"
 
+using namespace std;
+
 static CMainThread* g_MainThread;
 CMainThread::CMainThread()
 {
 	InitializeCriticalSection(&PM_CS);
 	m_LastProcessMessageNoed = NULL;
 	m_TopProcessMessageNode = NULL;
+	for (int i = 0; i < 100; i++)
+	{
+		CLandGameTable * table = new CLandGameTable();
+		table->m_TableIndex = i;
+		m_TableList.push_back(table);
+	}
 }
 
 
@@ -99,6 +107,20 @@ void CMainThread::DispachClientMessage()
 		if (Msg->MessageID = 1003)
 		{
 			OutputDebugString("在这里可以处理找位置的信息了");
+			//这里需要处理
+			//Msg->
+			for (list<CLandGameTable*>::iterator it = m_TableList.begin(); it != m_TableList.end(); it++)
+			{
+				CLandGameTable* ct = (CLandGameTable*)*it;
+				if (ct->getPlayerCount() < 3)
+				{
+					int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);
+					int tIndex = ct->m_TableIndex;
+					//发送信息到客户端
+
+				}
+				
+			}
 
 		}
 		PopNode();

@@ -6,7 +6,7 @@ class CLandGameTable
 public:
 	CLandGameTable();
 	~CLandGameTable();
-	CUserClient m_UserList[3];
+	CUserClient* m_UserList[3];
 	bool DoMsg(int num, int action);
 	void GameStart();//游戏初始化，发牌。
 	//bool MainComputer;//主机，是主机则是true 不是则为false;
@@ -26,6 +26,10 @@ public:
 	int PlayerMaininfo;//记录有几个玩家选择放弃地主 如果都放弃则游戏结束
 	void SendCard();	//发牌
 	void SortCard(CCard ca[]);
+	int getPlayerCount();
+	int  AddPlayer(CUserClient* client);
+	int m_TableIndex;
+
 private:
 	//	void SortCard(Card ca[]);
 	void CardsInfo(CCard ca[], int &num, int &min, int &type);

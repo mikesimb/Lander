@@ -63,6 +63,7 @@ void CUserClient::SocketRead(pBlock data, int buflen)
 		pMessageDefault Msg = (pMessageDefault)(MsgHead + MsgHead->BufferPosition);
 		if (Msg->MessageID = 1003)
 		{
+			Msg->RecogID = (DWORD)this;
 			CMainThread::getInstance()->PushNode((char *)Msg, sizeof(MsgHead->BufferLen-sizeof(MessageHead)));
 			OutputDebugString("这是我收到的找座位的信息");
 		}

@@ -3,6 +3,9 @@
 #include "ZQThread.h"
 #include "uProtocol.h"
 #include "LandGameTable.h"
+#include <list>
+
+using namespace std;
 
 typedef struct tagProcessMessageNode
 {
@@ -17,7 +20,7 @@ public:
 	CMainThread();
 	~CMainThread();
 
-	CList<CLandGameTable*> m_TableList;
+	list<CLandGameTable*> m_TableList;
 
 public:
 	void Execute();
