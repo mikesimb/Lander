@@ -25,7 +25,11 @@ CMainThread::~CMainThread()
 
 void CMainThread::Execute()
 {
-	
+	while (!Terminated())
+	{
+		DispachClientMessage();
+
+	}
 }
 
 void CMainThread::PushNode(char * Buffer, int BufLen)
@@ -104,7 +108,7 @@ void CMainThread::DispachClientMessage()
 	{
 		pProcessMessageNode Node = m_TopProcessMessageNode;
 		pMessageDefault Msg = (pMessageDefault)Node->Buffer;
-		if (Msg->MessageID = 1003)
+		if (Msg->MessageID == 1002)
 		{
 			OutputDebugString("在这里可以处理找位置的信息了");
 			//这里需要处理
@@ -117,6 +121,8 @@ void CMainThread::DispachClientMessage()
 					int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);
 					int tIndex = ct->m_TableIndex;
 					//发送信息到客户端
+					CUserClient * client = (CUserClient*)Msg->RecogID;
+					client->SendMessageToClient(1002, tIndex, Seat);
 
 				}
 				

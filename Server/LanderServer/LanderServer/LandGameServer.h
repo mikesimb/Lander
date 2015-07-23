@@ -27,6 +27,8 @@ class CUserClient :public CZQCustomClient
 public:
 	CUserClient();
 	virtual ~CUserClient();
+
+	void SendMessageToClient(DWORD MessageID, DWORD WPARAM, DWORD LPARAM);
 private:
 	char * m_ReviceBuffer;
 	int   m_ReviceBufferLen;
@@ -35,6 +37,8 @@ private:
 protected:
 	virtual void SocketRead(pBlock data, int buflen);
 	void initialization();
+
+	
 
 };
 

@@ -41,7 +41,7 @@ implementation
 
 {$R *.dfm}
 uses
-  Config,uProtocol;
+  Config,uProtocol,SysUtils;
 
 
 procedure TChatClient.btn_loginClick(Sender: TObject);
@@ -77,7 +77,8 @@ var
   MsgHead :TMessageHead;
   Buf:PChar;
   Tmpbuf:PChar;
-  BufLen :integer;
+  BufLen :integer; 
+  A:pMessageDefault;
 begin
  //ÕÒ×ùÎ»
  BufLen :=0 ;
@@ -88,12 +89,18 @@ begin
  MsgHead.CompressID := 0 ;
  MsgHead.BufferPos := SizeOf(MsgHead);
  MsgHead.BufferLen := SizeOf(Msg);
- FillChar(Msg,SizeOf(Msg),#0);
+ FillChar(Msg,SizeOf(Msg),0);
  Msg.MessageID := CM_FIND_PLACE;
  CopyMemory(buf,@MsgHead,SizeOf(MsgHead));
- Tmpbuf:=PChar(Buf+sizeof(MsgHead));
+ Tmpbuf := Buf + SizeOf(TMessageHead);
+// Tmpbuf:=PChar(Buf+sizeof(MsgHead));
  CopyMemory(Tmpbuf,@Msg,SizeOf(Msg));
  FClientSocket.Socket.SendBuf(Buf^,BufLen);
+ A := pMessageDefault(Tmpbuf);
+ BufLen := A.RecogID;
+ Caption := intTostr(buflen);
+
+
   
 end;
 

@@ -5,6 +5,10 @@
 CLandGameTable::CLandGameTable()
 {
 	Game_State = -2;
+	for (int i = 0; i < 3; i++)
+	{
+		m_UserList[i] = NULL;
+	}
 }
 
 

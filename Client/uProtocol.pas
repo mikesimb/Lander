@@ -10,13 +10,14 @@ const
    SM_FIND_PLACE = 1003;
 
 type
-  TMessageHead = record
+  TMessageHead = packed record
     Signed:DWord;
     CompressID:DWORD;
     BufferPos:DWORD;
     BufferLen:DWord;
   end;
-  TMessageDefault = record
+  pMessageDefault = ^TMessageDefault;
+  TMessageDefault = packed record 
     RecogID :DWORD;
     MessageID :DWORD;
     WParam:DWORD;
