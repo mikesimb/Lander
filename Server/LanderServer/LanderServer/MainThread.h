@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "ZQThread.h"
 #include "uProtocol.h"
-#include "LandGameServer.h"
+#include "LandGameTable.h"
 
 typedef struct tagProcessMessageNode
 {
@@ -17,7 +17,7 @@ public:
 	CMainThread();
 	~CMainThread();
 
-	CList<CLandGameServer*> m_TableList;
+	CList<CLandGameTable*> m_TableList;
 
 public:
 	void Execute();
