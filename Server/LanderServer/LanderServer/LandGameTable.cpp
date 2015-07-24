@@ -481,6 +481,7 @@ int CLandGameTable::AddPlayer(CUserClient * client)
 	{
 		if (m_UserList[i] == NULL)
 		{
+			m_UserList[i] = client;
 			return i;
 		}
 	}

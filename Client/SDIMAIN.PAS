@@ -21,9 +21,18 @@ type
     btn_login: TButton;
     mmo_log: TMemo;
     Button1: TButton;
+    Panel3: TPanel;
+    Label3: TLabel;
+    Label4: TLabel;
+    lbl_tableNum: TLabel;
+    lbl_ChairNum: TLabel;
+    Button2: TButton;
+    Label5: TLabel;
+    lbl_UserState: TLabel;
     procedure N2Click(Sender: TObject);
     procedure btn_loginClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     FSetupForm:TFrm_Setup;
     FClientSocket:TClientSocket;
@@ -77,7 +86,7 @@ var
   MsgHead :TMessageHead;
   Buf:PChar;
   Tmpbuf:PChar;
-  BufLen :integer; 
+  BufLen :integer;
   A:pMessageDefault;
 begin
  //ÕÒ×ùÎ»
@@ -101,7 +110,38 @@ begin
  Caption := intTostr(buflen);
 
 
-  
+
+end;
+
+procedure TChatClient.Button2Click(Sender: TObject);
+ var
+  Msg : TMessageDefault;
+  MsgHead :TMessageHead;
+  Buf:PChar;
+  Tmpbuf:PChar;
+  BufLen :integer;
+  A:pMessageDefault;
+begin
+ //ÕÒ×ùÎ»
+ BufLen :=0 ;
+ BufLen := SizeOf(MsgHead)+sizeof(Msg);
+ GetMem(Buf,SizeOf(MsgHead)+sizeof(Msg));
+ FillChar(MsgHead,SizeOf(MsgHead),#0);
+ MsgHead.Signed := $FF545454;
+ MsgHead.CompressID := 0 ;
+ MsgHead.BufferPos := SizeOf(MsgHead);
+ MsgHead.BufferLen := SizeOf(Msg);
+ FillChar(Msg,SizeOf(Msg),0);
+ Msg.MessageID := CM_USER_READY;
+ Msg.WParam := 1;
+ CopyMemory(buf,@MsgHead,SizeOf(MsgHead));
+ Tmpbuf := Buf + SizeOf(TMessageHead);
+// Tmpbuf:=PChar(Buf+sizeof(MsgHead));
+ CopyMemory(Tmpbuf,@Msg,SizeOf(Msg));
+ FClientSocket.Socket.SendBuf(Buf^,BufLen);
+
+
+
 end;
 
 procedure TChatClient.N2Click(Sender: TObject);
@@ -121,12 +161,26 @@ var
   Buffer:array [0..4095] of AnsiChar;
 //  Msg :TDefaultMessage;
   DataLen:integer;
+  Msg :pMessageHead;
+  defaultmsg :pMessageDefault;
 begin
   dataLen := 0 ;
   DataLen := Socket.ReceiveBuf(Buffer,4096);
-  if(DataLen >0) then
+  Msg := @Buffer[0];
+  if(Msg.Signed = $FF545454)then
   begin
-      OutputDebugString(Buffer);
+     defaultmsg := pMessageDefault(Integer(Msg)+ msg.BufferPos);
+     case defaultmsg.MessageID of
+        SM_FIND_PLACE:
+        begin
+         lbl_tableNum.Caption := intTostr(defaultmsg.WParam);
+         lbl_ChairNum.Caption := inttostr(defaultmsg.LParam);
+        end;
+        SM_USER_READY:
+        begin
+         lbl_UserState.Caption := IntToStr(defaultmsg.WParam);
+        end;
+     end;
   end;
 //  if DataLen >= 16 then
 //  begin

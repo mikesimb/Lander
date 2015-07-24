@@ -129,9 +129,11 @@ void CZQCustomClient::ReadySendNextData(pBlock data, int buflen)
 			if (ErrorCode != ERROR_IO_PENDING)
 			{
 				//·¢ËÍ³ö´íÁË
+				m_IsSending = false;
 				Close();
 			}
 		}
+		m_IsSending = false;
 
 	}
 	LeaveCriticalSection(&m_SendCS);

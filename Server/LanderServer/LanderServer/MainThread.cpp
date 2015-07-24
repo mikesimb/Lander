@@ -108,27 +108,26 @@ void CMainThread::DispachClientMessage()
 	{
 		pProcessMessageNode Node = m_TopProcessMessageNode;
 		pMessageDefault Msg = (pMessageDefault)Node->Buffer;
-		if (Msg->MessageID == 1002)
+		switch (Msg->MessageID)
 		{
-			OutputDebugString("在这里可以处理找位置的信息了");
-			//这里需要处理
-			//Msg->
-			for (list<CLandGameTable*>::iterator it = m_TableList.begin(); it != m_TableList.end(); it++)
-			{
-				CLandGameTable* ct = (CLandGameTable*)*it;
-				if (ct->getPlayerCount() < 3)
-				{
-					int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);
-					int tIndex = ct->m_TableIndex;
-					//发送信息到客户端
-					CUserClient * client = (CUserClient*)Msg->RecogID;
-					client->SendMessageToClient(1002, tIndex, Seat);
-
-				}
-				
-			}
-
+		case CM_FIND_PLACE:
+			OnCM_FIND_PLACE(Msg);
+			break;
+		case CM_USER_READY:
+			OnCM_User_Ready(Msg);
+			break;
+		default:
+			break;
 		}
+// 		if (Msg->MessageID == 1002)
+// 		{
+// 			OutputDebugString("在这里可以处理找位置的信息了");
+// 			//这里需要处理
+// 			//Msg->
+// 			OnCM_FIND_PLACE(Msg);
+// 		
+// 		}
+
 		PopNode();
 	}
 }
@@ -142,4 +141,43 @@ CMainThread * CMainThread::getInstance()
 
 	}
 	return g_MainThread;
+}
+
+void CMainThread::OnCM_FIND_PLACE(pMessageDefault Msg)
+{
+	for (list<CLandGameTable*>::iterator it = m_TableList.begin(); it != m_TableList.end(); it++)
+	{
+		CLandGameTable* ct = (CLandGameTable*)*it;
+		if (ct->getPlayerCount() < 3)
+		{
+			int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);
+			int tIndex = ct->m_TableIndex;
+			//发送信息到客户端
+			CUserClient * client = (CUserClient*)Msg->RecogID;
+			client->SendMessageToClient(SM_FIND_PLACE, tIndex, Seat);
+			//需要给你的同桌你的信息
+			break;
+
+		}
+
+		if (ct->getPlayerCount() == 3)
+		{
+			ct->GameStart();
+		}
+
+	}
+
+}
+
+void CMainThread::OnCM_User_Ready(pMessageDefault Msg)
+{
+	CUserClient* client = (CUserClient *)Msg->RecogID;
+	if (client->getUserState() == US_IDEL)
+		client->setUserState(US_READY);
+	else
+	if (client->getUserState() == US_READY)
+		client->setUserState(US_IDEL);
+	client->SendMessageToClient(SM_USER_READY, client->getUserState(), 0);
+	//这里需要广播给同桌的人你的状态消息
+
 }

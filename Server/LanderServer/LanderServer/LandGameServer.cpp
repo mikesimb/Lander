@@ -42,7 +42,7 @@ CZQCustomClient* CLandGameServer::onCreateClientSocket()
 
 CUserClient::CUserClient()
 {
-
+	m_UserState = US_IDEL;
 }
 
 CUserClient::~CUserClient()
@@ -61,12 +61,14 @@ void CUserClient::SocketRead(pBlock data, int buflen)
 	{
 		pMessageHead  MsgHead = (pMessageHead)&data->MsgBuf[0];
 		pMessageDefault Msg = (pMessageDefault)(&data->MsgBuf[MsgHead->BufferPosition]);
-		if (Msg->MessageID == 1002)
-		{
-			Msg->RecogID = (DWORD)this;
-			CMainThread::getInstance()->PushNode((char *)Msg, buflen-sizeof(MessageHead));
-			OutputDebugString("这是我收到的找座位的信息");
-		}
+		Msg->RecogID = (DWORD)this;
+		CMainThread::getInstance()->PushNode((char *)Msg, buflen - sizeof(MessageHead));
+
+// 		if (Msg->MessageID == 1002)
+// 		{
+// 			OutputDebugString("这是我收到的找座位的信息");
+// 			//SendBuffer("who are you", 11);
+// 		}
 
 	}
 }
@@ -97,4 +99,14 @@ void CUserClient::SendMessageToClient(DWORD MessageID, DWORD WPARAM, DWORD LPARA
 	SendBuffer(buf, buflen);
 	delete buf;
 
+}
+
+void CUserClient::setUserState(CUserState us)
+{
+	m_UserState = us;
+}
+
+CUserState CUserClient::getUserState()
+{
+	return m_UserState;
 }

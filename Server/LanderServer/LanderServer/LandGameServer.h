@@ -3,6 +3,8 @@
 #include "ZQCustomClient.h"
 
 
+enum CUserState{ US_IDEL, US_READY, US_GAMEING, USGAMEEND };
+
 class CLandGameServer :public CZQCustomIOCPServer
 {
 public:
@@ -29,14 +31,20 @@ public:
 	virtual ~CUserClient();
 
 	void SendMessageToClient(DWORD MessageID, DWORD WPARAM, DWORD LPARAM);
+
+	void setUserState(CUserState us);
+	CUserState getUserState();
 private:
 	char * m_ReviceBuffer;
 	int   m_ReviceBufferLen;
+
+	CUserState m_UserState;
 
 	void ProcClientMsg(char* Buf, int buflen);
 protected:
 	virtual void SocketRead(pBlock data, int buflen);
 	void initialization();
+
 
 	
 

@@ -17,3 +17,9 @@ typedef struct  tagMessageDefault
 	DWORD LParam;
 }MessageDefault,*pMessageDefault;
 #pragma  pack()
+
+
+#define  CM_FIND_PLACE 1002
+#define  SM_FIND_PLACE 1003
+#define  CM_USER_READY 1004
+#define  SM_USER_READY 1005

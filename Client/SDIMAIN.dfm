@@ -71,6 +71,55 @@ object ChatClient: TChatClient
         OnClick = btn_loginClick
       end
     end
+    object Panel3: TPanel
+      Left = 2
+      Top = 137
+      Width = 185
+      Height = 331
+      Align = alClient
+      TabOrder = 1
+      ExplicitTop = 143
+      object Label3: TLabel
+        Left = 15
+        Top = 16
+        Width = 48
+        Height = 12
+        Caption = #26700#23376#21495#65306
+      end
+      object Label4: TLabel
+        Left = 15
+        Top = 34
+        Width = 48
+        Height = 12
+        Caption = #26885#23376#21495#65306
+      end
+      object lbl_tableNum: TLabel
+        Left = 80
+        Top = 16
+        Width = 6
+        Height = 12
+      end
+      object lbl_ChairNum: TLabel
+        Left = 80
+        Top = 34
+        Width = 6
+        Height = 12
+      end
+      object Label5: TLabel
+        Left = 15
+        Top = 52
+        Width = 36
+        Height = 12
+        Caption = #29366#24577#65306
+      end
+      object lbl_UserState: TLabel
+        Left = 57
+        Top = 52
+        Width = 24
+        Height = 12
+        Caption = #38386#32622
+      end
+    end
   end
   object Panel2: TPanel
     Left = 193
@@ -100,6 +149,15 @@ object ChatClient: TChatClient
       Caption = #25214#24231#20301
       TabOrder = 1
       OnClick = Button1Click
+    end
+    object Button2: TButton
+      Left = 104
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = #20934#22791
+      TabOrder = 2
+      OnClick = Button2Click
     end
   end
   object MainMenu1: TMainMenu

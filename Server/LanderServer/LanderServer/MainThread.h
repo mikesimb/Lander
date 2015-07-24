@@ -28,6 +28,8 @@ public:
 	void PopNode();
 	void ClearNode();
 	void DispachClientMessage();
+	void OnCM_FIND_PLACE(pMessageDefault Msg);
+	void OnCM_User_Ready(pMessageDefault Msg);
 	static CMainThread * getInstance();
 private:
 	pProcessMessageNode  m_TopProcessMessageNode;
