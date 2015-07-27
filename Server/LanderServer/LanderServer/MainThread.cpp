@@ -150,13 +150,7 @@ void CMainThread::OnCM_FIND_PLACE(pMessageDefault Msg)
 		CLandGameTable* ct = (CLandGameTable*)*it;
 		if (ct->getPlayerCount() < 3)
 		{
-			int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);
-			int tIndex = ct->m_TableIndex;
-			//发送信息到客户端
-			CUserClient * client = (CUserClient*)Msg->RecogID;
-			client->SendMessageToClient(SM_FIND_PLACE, tIndex, Seat);
-			//需要给你的同桌你的信息
-			break;
+			int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);		
 
 		}
 

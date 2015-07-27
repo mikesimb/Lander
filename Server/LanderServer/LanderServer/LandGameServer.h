@@ -31,7 +31,7 @@ public:
 	virtual ~CUserClient();
 
 	void SendMessageToClient(DWORD MessageID, DWORD WPARAM, DWORD LPARAM);
-
+	void SendMessageToClient(DWORD MessageID, DWORD WPARAM, char* buffer, int buflen);
 	void setUserState(CUserState us);
 	CUserState getUserState();
 private:

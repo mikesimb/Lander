@@ -29,6 +29,10 @@ type
     Button2: TButton;
     Label5: TLabel;
     lbl_UserState: TLabel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
     procedure N2Click(Sender: TObject);
     procedure btn_loginClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -163,6 +167,8 @@ var
   DataLen:integer;
   Msg :pMessageHead;
   defaultmsg :pMessageDefault;
+  Userinfo :TUserinfo;
+  UI:pUserinfo;
 begin
   dataLen := 0 ;
   DataLen := Socket.ReceiveBuf(Buffer,4096);
@@ -179,6 +185,15 @@ begin
         SM_USER_READY:
         begin
          lbl_UserState.Caption := IntToStr(defaultmsg.WParam);
+        end;
+        SM_ADD_USER:
+        begin
+          UI := pUserInfo(Integer(defaultmsg) +defaultmsg.LParam);
+          CopyMemory(@Userinfo,UI,SizeOf(defaultMsg.LParam));
+          if(defaultmsg.WParam = 1) then
+          begin
+            Panel5.Caption := UI.name;
+          end;
         end;
      end;
   end;

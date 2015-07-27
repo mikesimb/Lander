@@ -13,6 +13,9 @@ const
 
    SM_User_READY = 1005;//同步玩家的状态
 
+   SM_ADD_USER   = 1006; //
+   
+
 type
   pMessageHead = ^TMessageHead;
   TMessageHead = packed record
@@ -27,6 +30,11 @@ type
     MessageID :DWORD;
     WParam:DWORD;
     LParam:DWORD;
+  end;
+  pUserinfo = ^TUserinfo;
+  TUserinfo = packed record
+    name:array[0..14]of char ;
+    icon:byte;
   end;
 
 

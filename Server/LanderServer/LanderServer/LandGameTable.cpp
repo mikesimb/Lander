@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LandGameTable.h"
+#include "uProtocol.h"
 
 
 CLandGameTable::CLandGameTable()
@@ -482,8 +483,43 @@ int CLandGameTable::AddPlayer(CUserClient * client)
 		if (m_UserList[i] == NULL)
 		{
 			m_UserList[i] = client;
-			return i;
+			//发送信息给其他桌的人
+			int tIndex = m_TableIndex;
+			//发送信息到客户端
+		   client->SendMessageToClient(SM_FIND_PLACE, tIndex, i);
+			//需要给你的同桌你的信息
+		   BoradcastTableAddUserMessage(i);
+			break;
 		}
 	}
 	return -1;
+}
+
+void CLandGameTable::BroadcastMessage(int Seat, char * buf, int buflen)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if ((i != Seat) && (m_UserList[i] != NULL))
+		{
+			m_UserList[i]->SendMessageToClient(SM_ADD_USER, Seat, (char*)&UI, sizeof(UserInfo) );
+		}
+	}
+}
+
+void CLandGameTable::BoradcastTableAddUserMessage(int Seat)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (m_UserList[j] != NULL)
+			{
+				UserInfo UI;
+				sprintf_s(UI.name, 15, "User%d", i);
+				UI.icon = 0;
+
+			}
+			m_UserList[i]->SendMessageToClient(SM_ADD_USER, Seat, &UI, sizeof(UserInfo));
+		}
+	}
 }

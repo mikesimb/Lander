@@ -77,6 +77,28 @@ void CUserClient::initialization()
 {
 
 }
+void CUserClient::SendMessageToClient(DWORD MessageID, DWORD WPARAM, char* buffer, int buflen)
+{
+	MessageDefault msg;
+	msg.MessageID = MessageID;
+	msg.WParam = WPARAM;
+	msg.LParam = buflen;
+	msg.RecogID = (DWORD)this;
+
+	MessageHead msgHead;
+	msgHead.Signed = 0xFF545454;
+	msgHead.CompressID = 0;
+	msgHead.BufferPosition = sizeof(MessageHead);
+	msgHead.BufferLen = sizeof(MessageDefault);
+	int len = sizeof(MessageHead)+sizeof(MessageDefault)+buflen;
+	char * buf = new char[len];
+	memmove_s(buf, sizeof(MessageHead), &msgHead, sizeof(MessageHead));
+	char * tmpbuf = (char*)(buf + sizeof(MessageHead));
+	memmove_s(tmpbuf, sizeof(MessageDefault), &msg, sizeof(MessageDefault));
+	tmpbuf = tmpbuf + sizeof(MessageDefault);
+	memmove_s(tmpbuf, buflen, buffer, buflen);
+	SendBuffer(buf, len);
+}
 
 void CUserClient::SendMessageToClient(DWORD MessageID, DWORD WPARAM, DWORD LPARAM)
 {

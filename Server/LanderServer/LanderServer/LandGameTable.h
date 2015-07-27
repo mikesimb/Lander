@@ -1,6 +1,7 @@
 #pragma once
 #include "Card.h"
 #include "LandGameServer.h"
+#include "uProtocol.h"
 class CLandGameTable
 {
 public:
@@ -28,6 +29,8 @@ public:
 	void SortCard(CCard ca[]);
 	int getPlayerCount();
 	int  AddPlayer(CUserClient* client);
+	void BroadcastMessage(int Seat,char * buf ,int buflen);//广播消息到其他作为的信息
+	void BoradcastTableAddUserMessage(int Seat);
 	int m_TableIndex;
 
 private:

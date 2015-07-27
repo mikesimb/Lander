@@ -16,6 +16,15 @@ typedef struct  tagMessageDefault
 	DWORD WParam;
 	DWORD LParam;
 }MessageDefault,*pMessageDefault;
+
+
+typedef struct tagUserInfo
+{
+	char name[15];
+	byte icon;
+
+}UserInfo, *pUserInfo;
+
 #pragma  pack()
 
 
@@ -23,3 +32,6 @@ typedef struct  tagMessageDefault
 #define  SM_FIND_PLACE 1003
 #define  CM_USER_READY 1004
 #define  SM_USER_READY 1005
+
+#define  SM_ADD_USER   1006
+
