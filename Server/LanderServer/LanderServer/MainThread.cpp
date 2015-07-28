@@ -151,7 +151,8 @@ void CMainThread::OnCM_FIND_PLACE(pMessageDefault Msg)
 		if (ct->getPlayerCount() < 3)
 		{
 			int Seat = ct->AddPlayer((CUserClient*)Msg->RecogID);		
-
+			if (Seat != -1)
+				break;
 		}
 
 		if (ct->getPlayerCount() == 3)

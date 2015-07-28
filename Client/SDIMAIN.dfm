@@ -78,7 +78,6 @@ object ChatClient: TChatClient
       Height = 331
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 143
       object Label3: TLabel
         Left = 15
         Top = 16
@@ -158,6 +157,38 @@ object ChatClient: TChatClient
       Caption = #20934#22791
       TabOrder = 2
       OnClick = Button2Click
+    end
+    object Panel4: TPanel
+      Left = 16
+      Top = 58
+      Width = 625
+      Height = 303
+      Caption = 'Panel4'
+      TabOrder = 3
+      object Panel5: TPanel
+        Left = 24
+        Top = 207
+        Width = 81
+        Height = 22
+        Caption = 'Panel5'
+        TabOrder = 0
+      end
+      object Panel6: TPanel
+        Left = 264
+        Top = 264
+        Width = 73
+        Height = 17
+        Caption = 'Panel6'
+        TabOrder = 1
+      end
+      object Panel7: TPanel
+        Left = 528
+        Top = 210
+        Width = 73
+        Height = 17
+        Caption = 'Panel7'
+        TabOrder = 2
+      end
     end
   end
   object MainMenu1: TMainMenu

@@ -478,48 +478,56 @@ int CLandGameTable::getPlayerCount()
 
 int CLandGameTable::AddPlayer(CUserClient * client)
 {
+	
+	int CharID = -1;
 	for (int i = 0; i < 3; i++)
 	{
-		if (m_UserList[i] == NULL)
-		{
-			m_UserList[i] = client;
+		if (m_UserList[i] != NULL) continue;
+		    m_UserList[i] = client;
 			//发送信息给其他桌的人
 			int tIndex = m_TableIndex;
 			//发送信息到客户端
 		   client->SendMessageToClient(SM_FIND_PLACE, tIndex, i);
-			//需要给你的同桌你的信息
-		   BoradcastTableAddUserMessage(i);
-			break;
-		}
+		   CharID = i;
+		   break;
 	}
-	return -1;
+	BroadcastMessage(0, NULL, 0);
+	return CharID;
 }
 
 void CLandGameTable::BroadcastMessage(int Seat, char * buf, int buflen)
 {
+	//把加入的这个人的信息发送给其他两个人
 	for (int i = 0; i < 3; i++)
 	{
-		if ((i != Seat) && (m_UserList[i] != NULL))
+		if (m_UserList[i] == NULL) continue;
+		for (int j = 0; j < 3; j++)
 		{
-			m_UserList[i]->SendMessageToClient(SM_ADD_USER, Seat, (char*)&UI, sizeof(UserInfo) );
+			//if (m_UserList[j] == NULL) continue;
+			//m_UserList[i] = client;
+			//发送信息给其他桌的人
+			int tIndex = m_TableIndex;
+			//需要给你的同桌你的信息
+			UserInfo UI;
+			sprintf_s(UI.name, 15, "User%d", j);
+			UI.icon = 0;
+			m_UserList[i]->SendMessageToClient(SM_ADD_USER, j, (char*)&UI, sizeof(UserInfo));
 		}
 	}
 }
 
 void CLandGameTable::BoradcastTableAddUserMessage(int Seat)
 {
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			if (m_UserList[j] != NULL)
-			{
-				UserInfo UI;
-				sprintf_s(UI.name, 15, "User%d", i);
-				UI.icon = 0;
-
-			}
-			m_UserList[i]->SendMessageToClient(SM_ADD_USER, Seat, &UI, sizeof(UserInfo));
-		}
-	}
+// 	for (int i = 0; i < 3; i++)
+// 	{
+// 		for (int j = 0; j < 3; j++)
+// 		{
+// 			if (m_UserList[j] != NULL)
+// 			{
+// 			
+// 
+// 			}
+// 			m_UserList[i]->SendMessageToClient(SM_ADD_USER, Seat, &UI, sizeof(UserInfo));
+// 		}
+// 	}
 }

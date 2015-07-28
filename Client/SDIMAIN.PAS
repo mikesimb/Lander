@@ -172,6 +172,8 @@ var
 begin
   dataLen := 0 ;
   DataLen := Socket.ReceiveBuf(Buffer,4096);
+
+  OutputDebugString(PAnsiChar(IntToStr(DataLen)));
   Msg := @Buffer[0];
   if(Msg.Signed = $FF545454)then
   begin
@@ -190,10 +192,20 @@ begin
         begin
           UI := pUserInfo(Integer(defaultmsg) +defaultmsg.LParam);
           CopyMemory(@Userinfo,UI,SizeOf(defaultMsg.LParam));
-          if(defaultmsg.WParam = 1) then
-          begin
-            Panel5.Caption := UI.name;
-          end;
+         case defaultmsg.WParam  of
+         0:
+         begin
+           Panel5.Caption := ui.name;
+         end;
+         1:
+         begin
+           Panel6.Caption := Ui.name;
+         end;
+         2:
+         begin
+           Panel7.Caption := UI.name;
+         end;
+         end;
         end;
      end;
   end;
