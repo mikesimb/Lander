@@ -167,27 +167,48 @@ object ChatClient: TChatClient
       TabOrder = 3
       object Panel5: TPanel
         Left = 24
-        Top = 207
+        Top = 224
         Width = 81
-        Height = 22
+        Height = 42
         Caption = 'Panel5'
         TabOrder = 0
+        object Label6: TLabel
+          Left = 37
+          Top = 24
+          Width = 36
+          Height = 17
+          Caption = 'Label6'
+        end
       end
       object Panel6: TPanel
         Left = 264
         Top = 264
         Width = 73
-        Height = 17
+        Height = 33
         Caption = 'Panel6'
         TabOrder = 1
+        object Label7: TLabel
+          Left = 37
+          Top = 16
+          Width = 36
+          Height = 12
+          Caption = 'Label6'
+        end
       end
       object Panel7: TPanel
         Left = 528
         Top = 210
         Width = 73
-        Height = 17
+        Height = 55
         Caption = 'Panel7'
         TabOrder = 2
+        object Label8: TLabel
+          Left = 29
+          Top = 40
+          Width = 36
+          Height = 12
+          Caption = 'Label6'
+        end
       end
     end
   end

@@ -17,6 +17,7 @@ const
    
 
 type
+  TUserState=( US_IDEL, US_READY, US_GAMEING, USGAMEEND ); 
   pMessageHead = ^TMessageHead;
   TMessageHead = packed record
     Signed:DWord;
@@ -35,6 +36,7 @@ type
   TUserinfo = packed record
     name:array[0..14]of char ;
     icon:byte;
+    us:TUserState;
   end;
 
 

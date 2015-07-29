@@ -1,5 +1,9 @@
 #pragma  once
 #include "stdafx.h"
+
+#include "LandGameServer.h"
+
+
 #pragma  pack(4)
 typedef  struct tagMessageHead{
 	DWORD Signed;  //协议头签名     必须为0xFF5454;
@@ -22,6 +26,7 @@ typedef struct tagUserInfo
 {
 	char name[15];
 	byte icon;
+	CUserState us;
 
 }UserInfo, *pUserInfo;
 

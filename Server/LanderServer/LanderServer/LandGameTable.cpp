@@ -511,6 +511,7 @@ void CLandGameTable::BroadcastMessage(int Seat, char * buf, int buflen)
 			UserInfo UI;
 			sprintf_s(UI.name, 15, "User%d", j);
 			UI.icon = 0;
+			UI.us = m_UserList[i]->getUserState();
 			m_UserList[i]->SendMessageToClient(SM_ADD_USER, j, (char*)&UI, sizeof(UserInfo));
 		}
 	}
@@ -530,4 +531,17 @@ void CLandGameTable::BoradcastTableAddUserMessage(int Seat)
 // 			m_UserList[i]->SendMessageToClient(SM_ADD_USER, Seat, &UI, sizeof(UserInfo));
 // 		}
 // 	}
+}
+void  CLandGameTable::PlayerReady(CUserClient * client)
+{
+	int CharID = -1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (m_UserList[i] == client)
+		{
+			m_UserList[i]->setUserState(US_READY);
+		}
+	}
+	BroadcastMessage(0, NULL, 0);
+	
 }

@@ -33,6 +33,9 @@ type
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
     procedure N2Click(Sender: TObject);
     procedure btn_loginClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -206,14 +209,27 @@ begin
              0:
              begin
                Panel5.Caption := ui.name;
+               if(ui.us = US_IDEL) then
+                Label6.Caption := '¿ÕÏÐ';
+               if(ui.us =US_READY)then
+                 Label6.Caption :='µÈ´ý';
+               
              end;
              1:
              begin
                Panel6.Caption := Ui.name;
+               if(ui.us = US_IDEL) then
+                Label7.Caption := '¿ÕÏÐ';
+               if(ui.us =US_READY)then
+                 Label7.Caption :='µÈ´ý';
              end;
              2:
              begin
                Panel7.Caption := UI.name;
+               if(ui.us = US_IDEL) then
+                Label8.Caption := '¿ÕÏÐ';
+               if(ui.us =US_READY)then
+                 Label8.Caption :='µÈ´ý';
              end;
              end;
             end;
