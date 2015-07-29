@@ -163,51 +163,64 @@ end;
 procedure TChatClient.OnClientRead(Sender: TObject; Socket: TCustomWinSocket);
 var
   Buffer:array [0..4095] of AnsiChar;
+
+  pBuf :pChar;
 //  Msg :TDefaultMessage;
   DataLen:integer;
   Msg :pMessageHead;
   defaultmsg :pMessageDefault;
   Userinfo :TUserinfo;
   UI:pUserinfo;
+  processLen:integer;
 begin
   dataLen := 0 ;
   DataLen := Socket.ReceiveBuf(Buffer,4096);
 
   OutputDebugString(PAnsiChar(IntToStr(DataLen)));
-  Msg := @Buffer[0];
-  if(Msg.Signed = $FF545454)then
+  while DataLen > SizeOf(TMessageHead) do
   begin
-     defaultmsg := pMessageDefault(Integer(Msg)+ msg.BufferPos);
-     case defaultmsg.MessageID of
-        SM_FIND_PLACE:
-        begin
-         lbl_tableNum.Caption := intTostr(defaultmsg.WParam);
-         lbl_ChairNum.Caption := inttostr(defaultmsg.LParam);
+       Msg := @Buffer[0];
+       GetMem(pBuf,Msg.BufferLen);
+       processLen := SizeOf(TMessageHead)+msg.BufferLen;
+       CopyMemory(pBuf,PChar(Integer(msg)+sizeof(TMessageHead)),Msg.BufferLen);
+       DataLen := DataLen- processLen;
+       Move(Buffer[ProcessLen],Buffer[0],DataLen);
+       if(Msg.Signed = $FF545454)then
+       begin
+         defaultmsg :=pMessageDefault(pBuf);
+         case defaultmsg.MessageID of
+            SM_FIND_PLACE:
+            begin
+             lbl_tableNum.Caption := intTostr(defaultmsg.WParam);
+             lbl_ChairNum.Caption := inttostr(defaultmsg.LParam);
+            end;
+            SM_USER_READY:
+            begin
+             lbl_UserState.Caption := IntToStr(defaultmsg.WParam);
+            end;
+            SM_ADD_USER:
+            begin
+              UI := pUserInfo(Integer(defaultmsg) +sizeof(TMessageDefault));
+              CopyMemory(@Userinfo,UI,SizeOf(defaultMsg.LParam));
+             case defaultmsg.WParam  of
+             0:
+             begin
+               Panel5.Caption := ui.name;
+             end;
+             1:
+             begin
+               Panel6.Caption := Ui.name;
+             end;
+             2:
+             begin
+               Panel7.Caption := UI.name;
+             end;
+             end;
+            end;
+         end;
         end;
-        SM_USER_READY:
-        begin
-         lbl_UserState.Caption := IntToStr(defaultmsg.WParam);
-        end;
-        SM_ADD_USER:
-        begin
-          UI := pUserInfo(Integer(defaultmsg) +defaultmsg.LParam);
-          CopyMemory(@Userinfo,UI,SizeOf(defaultMsg.LParam));
-         case defaultmsg.WParam  of
-         0:
-         begin
-           Panel5.Caption := ui.name;
-         end;
-         1:
-         begin
-           Panel6.Caption := Ui.name;
-         end;
-         2:
-         begin
-           Panel7.Caption := UI.name;
-         end;
-         end;
-        end;
-     end;
+
+
   end;
 //  if DataLen >= 16 then
 //  begin

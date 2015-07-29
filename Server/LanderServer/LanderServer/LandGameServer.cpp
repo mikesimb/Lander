@@ -89,7 +89,7 @@ void CUserClient::SendMessageToClient(DWORD MessageID, DWORD WPARAM, char* buffe
 	msgHead.Signed = 0xFF545454;
 	msgHead.CompressID = 0;
 	msgHead.BufferPosition = sizeof(MessageHead);
-	msgHead.BufferLen = sizeof(MessageDefault);
+	msgHead.BufferLen = sizeof(MessageDefault)+buflen;
 	int len = sizeof(MessageHead)+sizeof(MessageDefault)+buflen;
 	char * buf = new char[len];
 	memmove_s(buf, sizeof(MessageHead), &msgHead, sizeof(MessageHead));

@@ -503,7 +503,7 @@ void CLandGameTable::BroadcastMessage(int Seat, char * buf, int buflen)
 		if (m_UserList[i] == NULL) continue;
 		for (int j = 0; j < 3; j++)
 		{
-			//if (m_UserList[j] == NULL) continue;
+			if (m_UserList[j] == NULL) continue;
 			//m_UserList[i] = client;
 			//发送信息给其他桌的人
 			int tIndex = m_TableIndex;
