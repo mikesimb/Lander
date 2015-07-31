@@ -34,16 +34,22 @@ public:
 	void SendMessageToClient(DWORD MessageID, DWORD WPARAM, char* buffer, int buflen);
 	void setUserState(CUserState us);
 	CUserState getUserState();
+	void SeatIntTable(int tableNumber, int charId);
+	void StandUpInTable();
 private:
 	char * m_ReviceBuffer;
 	int   m_ReviceBufferLen;
 
 	CUserState m_UserState;
+	int    m_TabaleNumber;//×À×ÓºÅ
+	int    m_CharID;//×ùÎ»ºÅ
 
 	void ProcClientMsg(char* Buf, int buflen);
 protected:
 	virtual void SocketRead(pBlock data, int buflen);
 	void initialization();
+
+
 
 
 	
