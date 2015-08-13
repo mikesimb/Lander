@@ -2,14 +2,11 @@
 #include <WinSock2.h>
 #include <list>
 #include <functional>
+#include "ZQCommon.h"
 
-class CZQCustomClient;
 
-typedef std::function<void()>  OnSocketNotifyEvent;
-typedef std::function<void(CZQCustomClient * client)>  OnSocketConnectNotifyEvent;
-typedef std::function<void(char * buf, int buflen)>  OnSocketReadNotifyEvent;
-typedef std::function<void(char * buf, int buflen)>  OnSocketWriteNotifyEvent;
-typedef std::function<CZQCustomClient * ()> OnCreateSocketClientNotifyEvent;
+
+
 
 
 #pragma comment(lib,"ws2_32.lib")
