@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="LanderServer.cpp" />
     <ClCompile Include="LanderServerDlg.cpp" />
     <ClCompile Include="LandGameServer.cpp" />
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="ClientSocket.h" />
     <ClInclude Include="LanderServer.h" />
     <ClInclude Include="LanderServerDlg.h" />
     <ClInclude Include="LandGameServer.h" />

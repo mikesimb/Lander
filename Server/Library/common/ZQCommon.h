@@ -11,9 +11,9 @@ typedef std::function<void(char * buf, int buflen)>  OnSocketReadNotifyEvent;
 typedef std::function<void(char * buf, int buflen)>  OnSocketWriteNotifyEvent;
 typedef std::function<CZQCustomClient * ()> OnCreateSocketClientNotifyEvent;
 
-typedef std::function<void(TClientSocket*)> onClientSocketConnectNotifyEvent;
-typedef std::function<void(TClientSocket*)> onClientSocketDisConnectNotifyEvent;
-typedef std::function<void(TClientSocket*,int)> onClientErrorNotifyEvent;
+typedef std::function<void(CClientSocket*)> onClientSocketConnectNotifyEvent;
+typedef std::function<void(CClientSocket*)> onClientSocketDisConnectNotifyEvent;
+typedef std::function<void(CClientSocket*, int)> onClientErrorNotifyEvent;
 
 
 #define CONFIG_FILE_NAME "LoginGate.ini"
