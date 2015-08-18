@@ -15,6 +15,7 @@ typedef struct __ClientSendDataNodetag
 class CZQCustomClient
 {
 	friend class CZQCustomIOCPServer;
+
 public:
 	CZQCustomClient();
 	virtual ~CZQCustomClient();
@@ -38,6 +39,22 @@ public:
 	void DeleteBeginNode();
 	void ClearNodes();
 	SOCKET  getsocket(){ return m_socket; };
+
+	SOCKET getSocket();
+	void setSocket(SOCKET socket);
+
+	void setAddress(char * ip);
+	char * getAddress();
+
+	HANDLE getIOCPHandle();
+	void setIOCPHandle(HANDLE handle);
+
+	void setPort(int port);
+	int getPort();
+
+
+	void ClearReviceData();
+	pBlock getReviceData();
 
 
 private:

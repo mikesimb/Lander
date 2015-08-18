@@ -247,3 +247,57 @@ void CZQCustomClient::SetAcitveTick(DWORD dwTick)
 {
 	m_dwActiveTick = dwTick;
 }
+
+SOCKET CZQCustomClient::getSocket()
+{
+	return m_socket;
+}
+
+void CZQCustomClient::setSocket(SOCKET socket)
+{
+	m_socket = socket;
+}
+
+void CZQCustomClient::setAddress(char * ip)
+{
+	memcpy_s(&m_address[0], 16, ip, 16);
+
+}
+
+char * CZQCustomClient::getAddress()
+{
+	return  m_address;
+}
+
+HANDLE CZQCustomClient::getIOCPHandle()
+{
+	return m_IOCP;
+}
+
+void CZQCustomClient::setIOCPHandle(HANDLE handle)
+{
+	m_IOCP = handle;
+}
+
+void CZQCustomClient::setPort(int port)
+{
+	m_Port = port;
+}
+
+int CZQCustomClient::getPort()
+{
+	return m_Port;
+}
+
+void CZQCustomClient::ClearReviceData()
+{
+	memset(&m_ReviceData, 0, sizeof(m_ReviceData));
+
+}
+
+pBlock CZQCustomClient::getReviceData()
+{
+	return &m_ReviceData;
+}
+
+
